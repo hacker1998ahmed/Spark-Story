@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرارة قصة</title>
+
+    <!-- PWA and Mobile App Meta Tags -->
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@^0.14.0",
+          "jspdf": "https://esm.sh/jspdf@2.5.1",
+          "html2canvas": "https://esm.sh/html2canvas@1.4.1",
+          "docx": "https://esm.sh/docx@8.5.0"
+        }
+      }
+    </script>
+    <script type="module" src="index.tsx"></script>
+</head>
+<body>
+    <div id="app-container">
+        <main>
+            <!-- Home Page - Launchpad -->
+            <section id="home-page" class="page active-page">
+                 <header>
+                    <h1 class="main-title"><span data-translate-key="home.title">استوديو الإبداع</span> <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2.355M18.364 5.636l-1.667 1.667M21 12h-2.355M18.364 18.364l-1.667-1.667M12 21v-2.355M5.636 18.364l1.667-1.667M3 12h2.355M5.636 5.636l1.667 1.667"/><path d="m12 12 1.643-3.13L16.5 7.227l-3.13-1.642L12 2.455l-1.643 3.13L7.227 7.227l3.13 1.642z"/></svg></h1>
+                    <p data-translate-key="home.subtitle">مجموعة متكاملة من أدوات الذكاء الاصطناعي بين يديك.</p>
+                </header>
+                <div class="tool-grid">
+                    <!-- New Comic Tools -->
+                     <div class="tool-card" data-target-page="comic-creator-page" data-translate-title-key="comicCreator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15c-1.33 0-2.67.2-4 .5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4.5c-1.33-.3-2.67-.5-4-.5s-2.67.2-4 .5V5"/><path d="M8 8h.01"/><path d="M11 8h.01"/><path d="M14 8h.01"/></svg>
+                        <h3 data-translate-key="comicCreator.title">مُنشئ الكوميكس</h3>
+                        <p data-translate-key="comicCreator.description">حوّل وصفك النصي إلى لوحة فنية بأسلوب المانجا أو الويبتون.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="story-to-comic-page" data-translate-title-key="storyToComic.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v11.2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M10 12.4s.5-1.4 2-1.4 2 1.4 2 1.4"/><path d="M14 16.4c-1 0-1.5-.4-2-.4s-1 .4-2 .4"/><path d="M5 6.4h14"/><path d="M8 4.4v2"/><path d="M16 4.4v2"/></svg>
+                        <h3 data-translate-key="storyToComic.title">تحويل القصة إلى كوميكس</h3>
+                        <p data-translate-key="storyToComic.description">ألصق قصة قصيرة وسيقوم الذكاء الاصطناعي بتحويلها لقصة مصورة.</p>
+                    </div>
+
+                    <!-- Base Tools -->
+                    <div class="tool-card" data-target-page="story-creator-page" data-translate-title-key="storyCreator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                        <h3 data-translate-key="storyCreator.title">منشئ القصص</h3>
+                        <p data-translate-key="storyCreator.description">حوّل أفكارك إلى قصص نصية، مصورة، أو مخططات روايات.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="image-studio-page" data-translate-title-key="imageStudio.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <h3 data-translate-key="imageStudio.title">استوديو الصور والفيديو</h3>
+                        <p data-translate-key="imageStudio.description">أنشئ صوراً فنية من النصوص، أو حوّل صورك إلى فيديوهات.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="ai-chat-page" data-translate-title-key="aiChat.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.5c2.5 1 4.5-2.5 4.5-5a9.5 9.5 0 0 0-18 0c0 2.5 2 6 4.5 5c1.25-.44 2.5-1.5 4-1.5z"/><path d="M12 21c-2 0-3.5-1.5-3.5-3.5c0-1.5-1.5-2.5-1.5-2.5c0-4 4-8.5 9-8.5c4 0 7 2.5 7 5.5c0 2-1 3-1 3c0 0-1.5 1-1.5 2.5c0 2-1.5 3.5-3.5 3.5z"/></svg>
+                        <h3 data-translate-key="aiChat.title">مساعد ذكي</h3>
+                        <p data-translate-key="aiChat.description">اطرح أي سؤال أو دردش حول أي موضوع للحصول على إجابات.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="image-editor-page" data-translate-title-key="imageEditor.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8-5.8 1.9 5.8 1.9L12 18l1.9-5.8 5.8-1.9-5.8-1.9Z"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <h3 data-translate-key="imageEditor.title">محرر الصور</h3>
+                        <p data-translate-key="imageEditor.description">عدّل صورك بالذكاء الاصطناعي. اطلب تغييرات مثل "أضف قبعة".</p>
+                    </div>
+
+                    <!-- Newest Tools (Set 3) -->
+                    <div class="tool-card" data-target-page="background-remover-page" data-translate-title-key="bgRemover.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"/><path d="M14.5 11.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"/><path d="M7 21a2 2 0 0 0 2-2v-2h6v2a2 2 0 0 0 2 2Z"/><path d="m6.5 17-1-2-1 2"/><path d="m18.5 17 1-2 1 2"/><path d="m13 14-1-1-1 1"/><path d="M12 7.5c-2 0-4.5 1.5-4.5 1.5s-1-1.5-2.5-1.5-2.5 1.5-2.5 1.5V13c0 2 2 4 4 4h4a4 4 0 0 0 4-4V9s-1-1.5-2.5-1.5S14 7.5 12 7.5Z"/></svg>
+                        <h3 data-translate-key="bgRemover.title">مزيل الخلفية</h3>
+                        <p data-translate-key="bgRemover.description">أزل خلفية أي صورة بدقة عالية للحصول على صورة شفافة.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="ocr-page" data-translate-title-key="ocr.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><path d="M14 2v6h6"/><path d="M3 15h6"/><path d="M5 12v6"/><path d="M10 12h2v6"/><path d="M15 12h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1"/></svg>
+                        <h3 data-translate-key="ocr.title">قارئ النصوص من الصور</h3>
+                        <p data-translate-key="ocr.description">ارفع صورة تحتوي على نص واستخرج الكتابة منها بدقة.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="video-script-writer-page" data-translate-title-key="videoScript.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 14 2 2 4-4"/></svg>
+                        <h3 data-translate-key="videoScript.title">كاتب سيناريو الفيديو</h3>
+                        <p data-translate-key="videoScript.description">اكتب سيناريو (سكريبت) كاملاً لمقطع الفيديو القادم.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="rephrase-page" data-translate-title-key="rephrase.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-9 9c-4.97 0-9-4.03-9-9s4.03-9 9-9"/><path d="M12 21a9 9 0 0 1-9-9"/><path d="M3 12a9 9 0 0 1 9-9"/><path d="m14 7-4 4 4 4"/><path d="m10 7-4 4 4 4"/></svg>
+                        <h3 data-translate-key="rephrase.title">إعادة صياغة النصوص</h3>
+                        <p data-translate-key="rephrase.description">ألصق أي نص للحصول على نسخة جديدة بكلمات مختلفة.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="product-description-page" data-translate-title-key="productDescription.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.59a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                        <h3 data-translate-key="productDescription.title">كاتب وصف المنتجات</h3>
+                        <p data-translate-key="productDescription.description">مثالي للمتاجر الإلكترونية لكتابة وصف جذاب للمنتجات.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="cover-letter-page" data-translate-title-key="coverLetter.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12.5"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M18 14.3c.9.3 1.5.9 1.5 1.7 0 1.1-.9 2-2 2h-1.5v-4H17c1.1 0 2 .9 2 2z"/><path d="M22 14.3v4"/></svg>
+                        <h3 data-translate-key="coverLetter.title">كاتب خطاب التغطية</h3>
+                        <p data-translate-key="coverLetter.description">اكتب خطاب تقديم احترافي ومقنع للوظائف.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="brainstorm-page" data-translate-title-key="brainstorm.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5C17.7 10.5 19 9 19 7c0-2.2-1.8-4-4-4-1.5 0-2.8.8-3.5 2-.7-1.2-2-2-3.5-2-2.2 0-4 1.8-4 4 0 2 1.3 3.5 2.5 4.5C7.3 12.3 7.8 13 8 14"/><path d="M14 18.5c-3 0-4.5-.8-4.5-2.5h9c0 1.7-1.5 2.5-4.5 2.5Z"/><path d="M6 16h12"/><path d="M9 22h6"/></svg>
+                        <h3 data-translate-key="brainstorm.title">مساعد العصف الذهني</h3>
+                        <p data-translate-key="brainstorm.description">احصل على أفكار إبداعية وغير تقليدية حول أي موضوع.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="joke-generator-page" data-translate-title-key="jokeGenerator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M12 18v-6"/><path d="M9 15h6"/><path d="M12 9l-1.5 1.5"/></svg>
+                        <h3 data-translate-key="jokeGenerator.title">مولد النكت</h3>
+                        <p data-translate-key="jokeGenerator.description">اطلب نكتة عن أي موضوع للحصول على جرعة من الضحك.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="dream-interpreter-page" data-translate-title-key="dreamInterpreter.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M17.6 17.6c.2-.2.3-.5.3-.8A6 6 0 0 0 12 6a6 6 0 0 0-6 6c0 3.3 2.7 6 6 6 .3 0 .6 0 .8-.1"/></svg>
+                        <h3 data-translate-key="dreamInterpreter.title">مفسر الأحلام</h3>
+                        <p data-translate-key="dreamInterpreter.description">أدخل حلمك واحصل على تفسير شيق ومحتمل لمعانيه.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="name-generator-page" data-translate-title-key="nameGenerator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11a4 4 0 0 0 0-8"/></svg>
+                        <h3 data-translate-key="nameGenerator.title">مولد الأسماء</h3>
+                        <p data-translate-key="nameGenerator.description">لأسماء الشخصيات، العلامات التجارية، أو أي شيء آخر.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="interview-question-page" data-translate-title-key="interviewQuestions.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M18 11.07a4 4 0 1 0 0-2.14"/><path d="M21.12 15.12a4 4 0 1 0-2.24 2.24"/></svg>
+                        <h3 data-translate-key="interviewQuestions.title">مولد أسئلة المقابلات</h3>
+                        <p data-translate-key="interviewQuestions.description">لمديري التوظيف: قم بإعداد أسئلة فعالة للمرشحين.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="swot-analysis-page" data-translate-title-key="swot.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9h9"/><path d="M3 12h9v9"/><path d="M12 12 3 21"/><path d="M12 12 21 3"/></svg>
+                        <h3 data-translate-key="swot.title">تحليل SWOT</h3>
+                        <p data-translate-key="swot.description">تحليل استراتيجي (قوة، ضعف، فرص، تهديدات) لأي مشروع.</p>
+                    </div>
+
+                    <!-- Existing Tools (Set 2) -->
+                    <div class="tool-card" data-target-page="logo-generator-page" data-translate-title-key="logoGenerator.description">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        <h3 data-translate-key="logoGenerator.title">مُنشئ الشعارات</h3>
+                        <p data-translate-key="logoGenerator.description">حوّل فكرة علامتك التجارية إلى شعار بسيط وأنيق.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="meme-generator-page" data-translate-title-key="memeGenerator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                        <h3 data-translate-key="memeGenerator.title">صانع الميمز</h3>
+                        <p data-translate-key="memeGenerator.description">اصنع الميم الخاص بك. ارفع صورة، أضف نصاً، أو اطلب اقتراحاً.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="speech-to-text-page" data-translate-title-key="speechToText.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                        <h3 data-translate-key="speechToText.title">تحويل الكلام إلى نص</h3>
+                        <p data-translate-key="speechToText.description">تحدث وسيقوم الذكاء الاصطناعي بتحويل صوتك إلى نص مكتوب.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="doc-qa-page" data-translate-title-key="docQA.description">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><circle cx="10.5" cy="16.5" r="1.5"/><path d="m14 12-3.5 4.5"/></svg>
+                        <h3 data-translate-key="docQA.title">سؤال وجواب للمستندات</h3>
+                        <p data-translate-key="docQA.description">ألصق نصاً أو وثيقة واطرح أسئلة حول محتواها.</p>
+                    </div>
+
+                    <!-- Existing Tools (Set 1) -->
+                    <div class="tool-card" data-target-page="email-writer-page" data-translate-title-key="emailWriter.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <h3 data-translate-key="emailWriter.title">كاتب البريد الإلكتروني</h3>
+                        <p data-translate-key="emailWriter.description">اكتب رسائل بريد إلكتروني احترافية ومقنعة في ثوانٍ.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="recipe-generator-page" data-translate-title-key="recipeGenerator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v1.5a1.5 1.5 0 0 1-3 0V5a8 8 0 0 1 16 0v1.5a1.5 1.5 0 0 1-3 0V7a5 5 0 0 0-5-5Z"/><path d="M12 8a5 5 0 0 0 5 5v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8a5 5 0 0 0 5-5Z"/></svg>
+                        <h3 data-translate-key="recipeGenerator.title">مولد الوصفات</h3>
+                        <p data-translate-key="recipeGenerator.description">أدخل المكونات المتوفرة لديك واحصل على وصفة مبتكرة.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="poem-generator-page" data-translate-title-key="poemGenerator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><path d="M4 13.5V8a2 2 0 0 1 2-2h4"/></svg>
+                        <h3 data-translate-key="poemGenerator.title">مولد القصائد</h3>
+                        <p data-translate-key="poemGenerator.description">حوّل أفكارك ومشاعرك إلى قصائد شعرية جميلة.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="song-writer-page" data-translate-title-key="songWriter.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        <h3 data-translate-key="songWriter.title">كاتب الأغاني</h3>
+                        <p data-translate-key="songWriter.description">اكتب كلمات أغانٍ كاملة لأي نوع موسيقي.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="code-assistant-page" data-translate-title-key="codeAssistant.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        <h3 data-translate-key="codeAssistant.title">مساعد المبرمجين</h3>
+                        <p data-translate-key="codeAssistant.description">مساعدك الذكي لكتابة، شرح، وإصلاح الأكواد البرمجية.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="trip-planner-page" data-translate-title-key="tripPlanner.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <h3 data-translate-key="tripPlanner.title">مخطط الرحلات</h3>
+                        <p data-translate-key="tripPlanner.description">خطط لرحلتك القادمة مع جدول يومي مفصل.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="workout-expert-page" data-translate-title-key="workoutExpert.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        <h3 data-translate-key="workoutExpert.title">خبير التمارين</h3>
+                        <p data-translate-key="workoutExpert.description">احصل على خطة تمارين رياضية مخصصة لأهدافك.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="resume-assistant-page" data-translate-title-key="resumeAssistant.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                        <h3 data-translate-key="resumeAssistant.title">مساعد السيرة الذاتية</h3>
+                        <p data-translate-key="resumeAssistant.description">احصل على مساعدة لتحسين سيرتك الذاتية وزيادة فرصك.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="ad-writer-page" data-translate-title-key="adWriter.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8 8 8 0 0 1-8-8z"/><path d="M12 6v6l4 2"/><path d="M22 12h-2"/><path d="M14 14l5 5"/><path d="M2 12h2"/><path d="M10 14 5 19"/></svg>
+                        <h3 data-translate-key="adWriter.title">كاتب الإعلانات</h3>
+                        <p data-translate-key="adWriter.description">اكتب نصوصاً إعلانية جذابة ومقنعة لمنتجاتك.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="social-post-generator-page" data-translate-title-key="socialPost.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2"/><path d="M10 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><rect width="8" height="4" x="8" y="2" rx="1"/><rect width="8" height="4" x="8" y="18" rx="1"/></svg>
+                        <h3 data-translate-key="socialPost.title">مولد منشورات السوشيال</h3>
+                        <p data-translate-key="socialPost.description">أنشئ منشورات تفاعلية وجذابة لوسائل التواصل الاجتماعي.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="video-idea-generator-page" data-translate-title-key="videoIdea.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <h3 data-translate-key="videoIdea.title">مولد أفكار الفيديوهات</h3>
+                        <p data-translate-key="videoIdea.description">احصل على أفكار فيديوهات مبتكرة لقناتك على يوتيوب.</p>
+                    </div>
+                    <div class="tool-card" data-target-page="translator-page" data-translate-title-key="translator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1m-1 18h1"/><path d="m12 2 4.9 11L22 5"/><path d="m17 12 5 7-5 7"/><path d="M12 12h10"/></svg>
+                        <h3 data-translate-key="translator.title">المترجم</h3>
+                        <p data-translate-key="translator.description">ترجم النصوص بين اللغات المختلفة بدقة وسلاسة.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="format-converter-page" data-translate-title-key="formatConverter.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-6"/><path d="M10 2v4"/><path d="M15 10h-5"/><path d="m13 8 2 2-2 2"/></svg>
+                        <h3 data-translate-key="formatConverter.title">محول الصيغ</h3>
+                        <p data-translate-key="formatConverter.description">حوّل النص من قائمة نقاط إلى فقرة، أو العكس، وغيره.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="meeting-summarizer-page" data-translate-title-key="meetingSummarizer.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M8 12h8"/><path d="M8 16h8"/><path d="M11 8h-3"/></svg>
+                        <h3 data-translate-key="meetingSummarizer.title">ملخص الاجتماعات</h3>
+                        <p data-translate-key="meetingSummarizer.description">لخص محاضر الاجتماعات الطويلة في نقاط موجزة وواضحة.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="world-builder-page" data-translate-title-key="worldBuilder.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><path d="M12 2a8 8 0 0 0-8 8.2c0 7.3 8 11.8 8 11.8a8 8 0 0 0 8-8.2C20 6.5 12 2 12 2z"/><path d="M12 2v20"/></svg>
+                        <h3 data-translate-key="worldBuilder.title">باني العوالم</h3>
+                        <p data-translate-key="worldBuilder.description">ابنِ عوالم خيالية متكاملة لقصصك وألعابك.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="character-creator-page" data-translate-title-key="characterCreator.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="M12 6v14"/><path d="M10 12H8l-2 4h6l-2-4"/><path d="M14 12h2l2 4h-6l2-4"/></svg>
+                        <h3 data-translate-key="characterCreator.title">صانع الشخصيات</h3>
+                        <p data-translate-key="characterCreator.description">اصنع شخصيات عميقة ومفصلة لقصصك ورواياتك.</p>
+                    </div>
+                     <div class="tool-card" data-target-page="business-plan-writer-page" data-translate-title-key="businessPlan.description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9Z"/><path d="M15 3v6h6"/><path d="M8 16h8"/><path d="M12 12v8"/></svg>
+                        <h3 data-translate-key="businessPlan.title">كاتب خطط العمل</h3>
+                        <p data-translate-key="businessPlan.description">اكتب خطط عمل احترافية ومفصلة لمشروعك.</p>
+                    </div>
+
+                </div>
+                 <div id="tooltip" role="tooltip"></div>
+            </section>
+
+            <!-- Story Creator Page -->
+            <section id="story-creator-page" class="page">
+                 <header>
+                    <h1 data-translate-key="storyCreator.title">منشئ القصص</h1>
+                    <p data-translate-key="storyCreator.description">حوّل أفكارك إلى قصص نصية، مصورة، أو مخططات روايات متكاملة.</p>
+                </header>
+
+                <div class="card">
+                     <form id="prompt-form">
+                        <fieldset class="story-type-chooser">
+                             <legend class="form-label" data-translate-key="storyCreator.outputType">اختر نوع الإخراج</legend>
+                             <input type="radio" id="type-short" name="story-type" value="short" checked>
+                             <label for="type-short">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+                                 <span data-translate-key="storyCreator.typeShort">قصة قصيرة</span>
+                             </label>
+
+                             <input type="radio" id="type-illustrated" name="story-type" value="illustrated">
+                             <label for="type-illustrated">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                                 <span data-translate-key="storyCreator.typeIllustrated">قصة مصورة</span>
+                             </label>
+
+                             <input type="radio" id="type-novel" name="story-type" value="novel">
+                             <label for="type-novel">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                                 <span data-translate-key="storyCreator.typeNovel">مخطط رواية</span>
+                             </label>
+                        </fieldset>
+
+                        <div class="details-section">
+                            <legend class="form-label" data-translate-key="storyCreator.details">أضف تفاصيل (اختياري)</legend>
+                            <div class="select-group">
+                                <label for="genre-select" data-translate-key="storyCreator.genre">النوع الأدبي</label>
+                                <select id="genre-select">
+                                    <option value="any" data-translate-key="storyCreator.genre.any">أي نوع</option>
+                                    <option value="sci-fi" data-translate-key="storyCreator.genre.sciFi">خيال علمي</option>
+                                    <option value="fantasy" data-translate-key="storyCreator.genre.fantasy">فانتازيا</option>
+                                    <option value="horror" data-translate-key="storyCreator.genre.horror">رعب</option>
+                                    <option value="comedy" data-translate-key="storyCreator.genre.comedy">كوميديا</option>
+                                    <option value="drama" data-translate-key="storyCreator.genre.drama">دراما</option>
+                                    <option value="adventure" data-translate-key="storyCreator.genre.adventure">مغامرة</option>
+                                    <option value="historical" data-translate-key="storyCreator.genre.historical">تاريخي</option>
+                                </select>
+                            </div>
+                             <div class="select-group">
+                                <label for="style-select" data-translate-key="storyCreator.style">أسلوب الكتابة</label>
+                                <select id="style-select">
+                                    <option value="any" data-translate-key="storyCreator.style.any">أي أسلوب</option>
+                                    <option value="simple" data-translate-key="storyCreator.style.simple">بسيط وواضح</option>
+                                    <option value="descriptive" data-translate-key="storyCreator.style.descriptive">وصفي ومفصل</option>
+                                    <option value="humorous" data-translate-key="storyCreator.style.humorous">فكاهي وساخر</option>
+                                    <option value="poetic" data-translate-key="storyCreator.style.poetic">شاعري</option>
+                                    <option value="mysterious" data-translate-key="storyCreator.style.mysterious">غامض ومثير</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="prompt-input" class="form-label" data-translate-key="storyCreator.promptLabel">اكتب فكرة القصة هنا...</label>
+                            <textarea id="prompt-input" data-translate-placeholder-key="storyCreator.promptPlaceholder" required></textarea>
+                        </div>
+                         <button id="generate-btn" type="submit">
+                             <span class="button-text" data-translate-key="storyCreator.generateButton">ابدأ الإنشاء</span>
+                             <div class="loader hidden"></div>
+                         </button>
+                     </form>
+                </div>
+
+                <div class="card inspiration-card">
+                    <h3 data-translate-key="storyCreator.inspirationTitle">هل تحتاج إلى إلهام؟</h3>
+                    <p data-translate-key="storyCreator.inspirationText">احصل على فكرة قصة عشوائية لتبدأ بها.</p>
+                    <button id="inspiration-btn" type="button">
+                        <span class="button-text" data-translate-key="storyCreator.inspirationButton">أعطني فكرة!</span>
+                        <div class="loader hidden"></div>
+                    </button>
+                </div>
+
+                <div id="result-card" class="card hidden">
+                    <div id="story-container-wrapper">
+                         <div id="story-image-container" class="hidden" role="status">
+                             <div class="image-loader"></div>
+                             <img id="story-image" src="" alt="صورة القصة" class="hidden">
+                         </div>
+                        <div id="story-container"></div>
+                    </div>
+                     <div id="action-toolbar" class="hidden">
+                        <button id="copy-btn" data-translate-title-key="actions.copy">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg>
+                            <span data-translate-key="actions.copy">نسخ</span>
+                        </button>
+                        <button id="listen-btn" data-translate-title-key="actions.listen">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                            <span data-translate-key="actions.listen">استماع</span>
+                        </button>
+                        <button id="proofread-btn" data-translate-title-key="actions.proofread">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M2.99 2.99V21h12.02c.5 0 1.05-.16 1.5-.42.85-.48 1.48-1.4 1.48-2.58s-.63-2.1-1.48-2.58c-.45-.26-1-.42-1.5-.42H5.99V2.99h12.02c.5 0 1.05-.16 1.5-.42.85-.48 1.48-1.4 1.48-2.58S22.4 2 21.55 1.52c-.45-.26-1-.42-1.5-.42H2.99zm6 6h6v2h-6zm0 4h6v2h-6z"></path></svg>
+                            <span data-translate-key="actions.proofread">تدقيق</span>
+                        </button>
+                        <button id="summarize-btn" data-translate-title-key="actions.summarize">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zm0-8h14V7H7v2z"></path></svg>
+                            <span data-translate-key="actions.summarize">تلخيص</span>
+                        </button>
+                        <button id="print-btn" data-translate-title-key="actions.print">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zM16 18H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM18 3H6v4h12V3z"></path></svg>
+                            <span data-translate-key="actions.print">اطبع</span>
+                        </button>
+                        <button id="pdf-btn" data-translate-title-key="actions.exportPdf">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5v1H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1z"></path></svg>
+                            <span data-translate-key="actions.pdf">PDF</span>
+                        </button>
+                        <button id="word-btn" data-translate-title-key="actions.exportWord">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M2 3v18h20V3H2zm10.5 11.5H11V10h-2v4.5H7.5V9H14v5.5zM18 11h-2v1.5h2V14h-2v1.5h2V17h-3.5V9H18v2z"></path></svg>
+                            <span data-translate-key="actions.word">Word</span>
+                        </button>
+                         <button id="txt-btn" data-translate-title-key="actions.exportTxt">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg>
+                             <span data-translate-key="actions.txt">TXT</span>
+                         </button>
+                    </div>
+
+                    <form id="extend-story-form" class="hidden">
+                        <textarea id="extend-prompt-input" data-translate-placeholder-key="storyCreator.extendPlaceholder" required></textarea>
+                        <button id="extend-btn" type="submit">
+                            <span class="button-text" data-translate-key="storyCreator.extendButton">تطوير القصة</span>
+                             <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Scheduling Section (Feature disabled for now) -->
+                <div class="card hidden">
+                    <form>
+                         <fieldset class="scheduling-section">
+                             <legend class="form-label" data-translate-key="storyCreator.scheduleTitle">جدولة الإنشاء (قريباً)</legend>
+                             <div class="schedule-control">
+                                 <input type="checkbox" id="schedule-checkbox" disabled>
+                                 <label for="schedule-checkbox" data-translate-key="storyCreator.scheduleLabel">جدولة هذه القصة لوقت لاحق</label>
+                             </div>
+                             <div id="schedule-options" class="hidden">
+                                 <label for="schedule-datetime-input" data-translate-key="storyCreator.scheduleTimeLabel">اختر التاريخ والوقت</label>
+                                 <input type="datetime-local" id="schedule-datetime-input" disabled>
+                                 <p class="schedule-note" data-translate-key="storyCreator.scheduleNote">ملاحظة: هذه الميزة تجريبية وقد لا تعمل بدقة.</p>
+                             </div>
+                         </fieldset>
+                    </form>
+                </div>
+
+            </section>
+
+            <!-- Image Studio Page -->
+            <section id="image-studio-page" class="page">
+                <header>
+                    <h1 data-translate-key="imageStudio.title">استوديو الصور والفيديو</h1>
+                    <p data-translate-key="imageStudio.description">أنشئ صوراً فنية من النصوص، أو حوّل صورك إلى فيديوهات.</p>
+                </header>
+                <div class="card">
+                     <h3 data-translate-key="imageStudio.t2iTitle">تحويل النص إلى صورة</h3>
+                    <form id="text-to-image-form">
+                        <textarea id="t2i-prompt-input" data-translate-placeholder-key="imageStudio.t2iPlaceholder" required></textarea>
+                        <button id="t2i-generate-btn" type="submit">
+                             <span class="button-text" data-translate-key="imageStudio.t2iButton">إنشاء صورة</span>
+                             <div class="loader hidden"></div>
+                         </button>
+                    </form>
+                    <div id="t2i-result-container" class="image-result-container hidden" role="status">
+                        <div class="image-loader"></div>
+                        <img id="t2i-result-image" src="" alt="الصورة المنشأة" class="hidden">
+                    </div>
+                </div>
+                 <div class="card">
+                     <h3 data-translate-key="imageStudio.i2vTitle">تحويل الصورة إلى فيديو (قريباً)</h3>
+                    <form id="image-to-video-form">
+                        <label for="i2v-file-input" class="file-input-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            <span id="file-name-span" data-translate-key="imageStudio.i2vFile">اختر ملف الصورة</span>
+                        </label>
+                        <input type="file" id="i2v-file-input" accept="image/*" disabled>
+                        <textarea id="i2v-prompt-input" data-translate-placeholder-key="imageStudio.i2vPlaceholder" disabled></textarea>
+                        <button id="i2v-generate-btn" type="submit" disabled>
+                             <span class="button-text" data-translate-key="imageStudio.i2vButton">إنشاء فيديو</span>
+                             <div class="loader hidden"></div>
+                         </button>
+                    </form>
+                     <div id="i2v-result-container" class="video-result-container hidden">
+                        <div class="video-loader-container" role="status">
+                            <div class="loader"></div>
+                            <p id="video-status-message" data-translate-key="imageStudio.i2vStatus" aria-live="polite">جاري إنشاء الفيديو، قد يستغرق الأمر بضع دقائق...</p>
+                        </div>
+                        <video id="i2v-result-video" controls class="hidden"></video>
+                    </div>
+                </div>
+            </section>
+
+             <!-- AI Chat Page -->
+            <section id="ai-chat-page" class="page generic-tool-page">
+                <header>
+                    <h1 data-translate-key="aiChat.title">مساعد ذكي</h1>
+                    <p data-translate-key="aiChat.description">اطرح أي سؤال أو دردش حول أي موضوع للحصول على إجابات فورية.</p>
+                </header>
+                <div class="card">
+                     <form class="generic-tool-form">
+                        <textarea class="generic-prompt-input" data-translate-placeholder-key="aiChat.placeholder" required></textarea>
+                        <button type="submit">
+                            <span class="button-text" data-translate-key="common.submit">إرسال</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                </div>
+                <div class="card generic-result-card hidden">
+                    <div class="generic-result-container"></div>
+                </div>
+            </section>
+
+             <!-- Image Editor Page -->
+            <section id="image-editor-page" class="page">
+                 <header>
+                    <h1 data-translate-key="imageEditor.title">محرر الصور</h1>
+                    <p data-translate-key="imageEditor.description">عدّل صورك بالذكاء الاصطناعي. اطلب تغييرات مثل "أضف قبعة" أو "غير الخلفية".</p>
+                </header>
+                <div class="card">
+                    <form id="image-editor-form">
+                        <label for="image-editor-file-input" class="file-input-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path></svg>
+                            <span id="image-editor-file-name" data-translate-key="imageEditor.selectFile">اختر صورة للتعديل</span>
+                        </label>
+                        <input type="file" id="image-editor-file-input" accept="image/*">
+                        <div id="image-editor-preview-container" class="hidden">
+                            <img id="image-editor-preview-image" src="" alt="Image Preview">
+                            <canvas id="image-editor-mask-canvas"></canvas>
+                        </div>
+                        <div id="mask-controls" class="hidden">
+                             <div class="mask-control-group">
+                                <label for="brush-size">حجم الفرشاة</label>
+                                <input type="range" id="brush-size" min="5" max="50" value="20">
+                             </div>
+                             <div class="mask-control-group">
+                                 <button type="button" id="mask-undo-btn">تراجع</button>
+                                 <button type="button" id="mask-clear-btn">مسح</button>
+                             </div>
+                        </div>
+                        <textarea id="image-editor-prompt" data-translate-placeholder-key="imageEditor.placeholder" required></textarea>
+                        <button type="submit">
+                            <span class="button-text" data-translate-key="imageEditor.button">تعديل الصورة</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                </div>
+                <div id="image-editor-result-card" class="card hidden">
+                    <h3 data-translate-key="imageEditor.resultTitle">الصورة المعدلة</h3>
+                     <div class="image-result-container" role="status">
+                        <div class="image-loader"></div>
+                        <img id="image-editor-result-image" src="" alt="الصورة المعدلة" class="hidden">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comic Creator Page -->
+            <section id="comic-creator-page" class="page">
+                <header>
+                    <h1 data-translate-key="comicCreator.title">مُنشئ الكوميكس</h1>
+                    <p data-translate-key="comicCreator.description">حوّل وصفك النصي إلى لوحة فنية بأسلوب المانجا أو الويبتون.</p>
+                </header>
+                <div class="card">
+                     <form id="comic-creator-form">
+                        <textarea class="generic-prompt-input" data-translate-placeholder-key="comicCreator.placeholder" required></textarea>
+                        <button type="submit">
+                            <span class="button-text" data-translate-key="comicCreator.button">إنشاء اللوحة</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                </div>
+                <div id="comic-creator-result-card" class="card hidden">
+                     <div class="image-result-container" role="status">
+                        <div class="image-loader comic-creator-result-loader"></div>
+                        <img id="comic-creator-result-image" src="" alt="لوحة الكوميكس" class="hidden">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Story to Comic Page -->
+            <section id="story-to-comic-page" class="page">
+                 <header>
+                    <h1 data-translate-key="storyToComic.title">تحويل القصة إلى كوميكس</h1>
+                    <p data-translate-key="storyToComic.description">ألصق قصة قصيرة وسيقوم الذكاء الاصطناعي بتحويلها لقصة مصورة.</p>
+                </header>
+                <div class="card">
+                     <form id="story-to-comic-form">
+                        <textarea id="story-to-comic-prompt" data-translate-placeholder-key="storyToComic.placeholder" required></textarea>
+                        <button type="submit">
+                            <span class="button-text" data-translate-key="storyToComic.button">حوّل إلى كوميكس</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                </div>
+                <div id="story-to-comic-result-card" class="card hidden">
+                     <p id="story-to-comic-status" role="status" aria-live="polite"></p>
+                     <div id="comic-result-grid">
+                         <!-- Comic panels will be injected here -->
+                     </div>
+                </div>
+            </section>
+
+
+            <!-- Email Writer Page -->
+            <section id="email-writer-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="emailWriter.title">كاتب البريد الإلكتروني</h1><p data-translate-key="emailWriter.description">اكتب رسائل بريد إلكتروني احترافية ومقنعة في ثوانٍ.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="emailWriter.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="emailWriter.button">إنشاء البريد</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Recipe Generator Page -->
+            <section id="recipe-generator-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="recipeGenerator.title">مولد الوصفات</h1><p data-translate-key="recipeGenerator.description">أدخل المكونات المتوفرة لديك واحصل على وصفة مبتكرة.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="recipeGenerator.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="recipeGenerator.button">ابحث عن وصفة</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Poem Generator Page -->
+            <section id="poem-generator-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="poemGenerator.title">مولد القصائد</h1><p data-translate-key="poemGenerator.description">حوّل أفكارك ومشاعرك إلى قصائد شعرية جميلة.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="poemGenerator.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="poemGenerator.button">اكتب قصيدة</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Song Writer Page -->
+            <section id="song-writer-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="songWriter.title">كاتب الأغاني</h1><p data-translate-key="songWriter.description">اكتب كلمات أغانٍ كاملة لأي نوع موسيقي.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="songWriter.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="songWriter.button">اكتب أغنية</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Code Assistant Page -->
+            <section id="code-assistant-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="codeAssistant.title">مساعد المبرمجين</h1><p data-translate-key="codeAssistant.description">مساعدك الذكي لكتابة، شرح، وإصلاح الأكواد البرمجية.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="codeAssistant.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="codeAssistant.button">اطلب مساعدة</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Trip Planner Page -->
+            <section id="trip-planner-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="tripPlanner.title">مخطط الرحلات</h1><p data-translate-key="tripPlanner.description">خطط لرحلتك القادمة مع جدول يومي مفصل.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="tripPlanner.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="tripPlanner.button">خطط رحلتي</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- Workout Expert Page -->
+            <section id="workout-expert-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="workoutExpert.title">خبير التمارين</h1><p data-translate-key="workoutExpert.description">احصل على خطة تمارين رياضية مخصصة لأهدافك.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="workoutExpert.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="workoutExpert.button">صمم خطتي</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Resume Assistant Page -->
+            <section id="resume-assistant-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="resumeAssistant.title">مساعد السيرة الذاتية</h1><p data-translate-key="resumeAssistant.description">احصل على مساعدة لتحسين سيرتك الذاتية وزيادة فرصك.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="resumeAssistant.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="resumeAssistant.button">راجع سيرتي</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Ad Writer Page -->
+            <section id="ad-writer-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="adWriter.title">كاتب الإعلانات</h1><p data-translate-key="adWriter.description">اكتب نصوصاً إعلانية جذابة ومقنعة لمنتجاتك.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="adWriter.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="adWriter.button">اكتب إعلان</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Social Post Generator Page -->
+            <section id="social-post-generator-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="socialPost.title">مولد منشورات السوشيال</h1><p data-translate-key="socialPost.description">أنشئ منشورات تفاعلية وجذابة لوسائل التواصل الاجتماعي.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="socialPost.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="socialPost.button">أنشئ منشور</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+             <!-- Logo Generator Page -->
+            <section id="logo-generator-page" class="page">
+                 <header><h1 data-translate-key="logoGenerator.title">مُنشئ الشعارات</h1><p data-translate-key="logoGenerator.description">حوّل فكرة علامتك التجارية إلى شعار بسيط وأنيق.</p></header>
+                 <div class="card">
+                    <form id="logo-generator-form">
+                        <textarea id="logo-prompt-input" class="generic-prompt-input" data-translate-placeholder-key="logoGenerator.placeholder" required></textarea>
+                        <button type="submit">
+                            <span class="button-text" data-translate-key="logoGenerator.button">صمم الشعار</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                 </div>
+                 <div class="card generic-result-card hidden">
+                     <div id="logo-result-container" class="image-result-container" role="status">
+                        <div class="image-loader"></div>
+                        <img id="logo-result-image" src="" alt="الشعار المصمم" class="hidden">
+                    </div>
+                </div>
+            </section>
+             <!-- Meme Generator Page -->
+            <section id="meme-generator-page" class="page">
+                <header><h1 data-translate-key="memeGenerator.title">صانع الميمز</h1><p data-translate-key="memeGenerator.description">اصنع الميم الخاص بك. ارفع صورة، أضف نصاً، أو اطلب اقتراحاً.</p></header>
+                <div class="card">
+                     <label for="meme-file-input" class="file-input-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path></svg>
+                        <span id="meme-file-name" data-translate-key="memeGenerator.selectFile">اختر صورة الميم</span>
+                    </label>
+                    <input type="file" id="meme-file-input" accept="image/*">
+                    <div id="meme-editor-container" class="hidden">
+                        <canvas id="meme-canvas"></canvas>
+                        <div class="meme-controls">
+                            <input type="text" id="meme-top-text" data-translate-placeholder-key="memeGenerator.topText">
+                            <input type="text" id="meme-bottom-text" data-translate-placeholder-key="memeGenerator.bottomText">
+                            <button id="meme-suggest-btn" type="button" data-translate-key="memeGenerator.suggestButton">اقترح نصاً</button>
+                            <button id="meme-download-btn" type="button" data-translate-key="memeGenerator.downloadButton">تنزيل الميم</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+             <!-- Speech to Text Page -->
+            <section id="speech-to-text-page" class="page">
+                 <header><h1 data-translate-key="speechToText.title">تحويل الكلام إلى نص</h1><p data-translate-key="speechToText.description">تحدث وسيقوم الذكاء الاصطناعي بتحويل صوتك إلى نص مكتوب.</p></header>
+                 <div class="card">
+                    <div class="recording-controls">
+                        <button id="record-btn" type="button" aria-label="Start Recording">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
+                        </button>
+                        <p id="recording-status" data-translate-key="speechToText.statusIdle" role="status" aria-live="polite">اضغط على الزر لبدء التسجيل الصوتي.</p>
+                    </div>
+                 </div>
+                 <div class="card generic-result-card hidden">
+                    <div id="speech-result-container" class="generic-result-container"></div>
+                </div>
+            </section>
+             <!-- Doc Q&A Page -->
+            <section id="doc-qa-page" class="page">
+                 <header><h1 data-translate-key="docQA.title">سؤال وجواب للمستندات</h1><p data-translate-key="docQA.description">ألصق نصاً أو وثيقة واطرح أسئلة حول محتواها.</p></header>
+                 <div class="card">
+                    <form id="doc-qa-form">
+                        <textarea id="doc-qa-doc-input" class="generic-prompt-input" data-translate-placeholder-key="docQA.docPlaceholder" required></textarea>
+                        <textarea id="doc-qa-question-input" data-translate-placeholder-key="docQA.questionPlaceholder" required></textarea>
+                        <button type="submit">
+                            <span class="button-text" data-translate-key="docQA.button">اسأل</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                 </div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- Background Remover Page -->
+            <section id="background-remover-page" class="page">
+                <header><h1 data-translate-key="bgRemover.title">مزيل الخلفية</h1><p data-translate-key="bgRemover.description">أزل خلفية أي صورة بدقة عالية للحصول على صورة شفافة.</p></header>
+                <div class="card">
+                     <form id="bg-remover-form">
+                        <label for="bg-remover-file-input" class="file-input-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path></svg>
+                            <span id="bg-remover-file-name" data-translate-key="bgRemover.selectFile">اختر صورة</span>
+                        </label>
+                        <input type="file" id="bg-remover-file-input" accept="image/*">
+                        <div id="bg-remover-preview-container" class="hidden">
+                            <img id="bg-remover-preview-image" src="" alt="Image Preview">
+                        </div>
+                        <button type="submit">
+                            <span class="button-text" data-translate-key="bgRemover.button">إزالة الخلفية</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </form>
+                </div>
+                <div id="bg-remover-result-card" class="card hidden">
+                     <h3 data-translate-key="bgRemover.resultTitle">الصورة النهائية</h3>
+                     <div class="image-result-container" role="status">
+                        <div class="image-loader"></div>
+                        <img id="bg-remover-result-image" src="" alt="Result Image" class="hidden">
+                    </div>
+                </div>
+            </section>
+            <!-- OCR Page -->
+            <section id="ocr-page" class="page">
+                <header><h1 data-translate-key="ocr.title">قارئ النصوص من الصور</h1><p data-translate-key="ocr.description">ارفع صورة تحتوي على نص واستخرج الكتابة منها بدقة.</p></header>
+                 <div class="card">
+                    <form id="ocr-form">
+                        <label for="ocr-file-input" class="file-input-label">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path></svg>
+                            <span id="ocr-file-name" data-translate-key="ocr.selectFile">اختر صورة تحتوي على نص</span>
+                        </label>
+                        <input type="file" id="ocr-file-input" accept="image/*">
+                    </form>
+                     <div id="ocr-preview-container" class="hidden">
+                        <img id="ocr-preview-image" src="" alt="OCR Preview">
+                    </div>
+                </div>
+                 <div id="ocr-result-card" class="card hidden">
+                     <div class="preview-header">
+                         <span id="ocr-preview-file-name" data-translate-key="ocr.resultTitle">النص المستخرج</span>
+                         <a href="#" id="ocr-download-link" class="hidden" download="extracted-text.txt">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
+                             <span data-translate-key="common.download">تحميل</span>
+                         </a>
+                     </div>
+                     <canvas id="ocr-canvas" class="hidden"></canvas>
+                    <div id="ocr-result-container" class="generic-result-container"></div>
+                </div>
+            </section>
+            <!-- Video Idea Generator Page -->
+            <section id="video-idea-generator-page" class="page generic-tool-page">
+                <header><h1 data-translate-key="videoIdea.title">مولد أفكار الفيديوهات</h1><p data-translate-key="videoIdea.description">احصل على أفكار فيديوهات مبتكرة لقناتك على يوتيوب.</p></header>
+                <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="videoIdea.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="videoIdea.button">توليد أفكار</span><div class="loader hidden"></div></button></form></div>
+                <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- Translator Page -->
+            <section id="translator-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="translator.title">المترجم</h1><p data-translate-key="translator.description">ترجم النصوص بين اللغات المختلفة بدقة وسلاسة.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="translator.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="translator.button">ترجم</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- Format Converter Page -->
+            <section id="format-converter-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="formatConverter.title">محول الصيغ</h1><p data-translate-key="formatConverter.description">حوّل النص من قائمة نقاط إلى فقرة، أو العكس، وغيره.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="formatConverter.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="formatConverter.button">تحويل</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- Meeting Summarizer Page -->
+            <section id="meeting-summarizer-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="meetingSummarizer.title">ملخص الاجتماعات</h1><p data-translate-key="meetingSummarizer.description">لخص محاضر الاجتماعات الطويلة في نقاط موجزة وواضحة.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="meetingSummarizer.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="meetingSummarizer.button">لخص</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- World Builder Page -->
+            <section id="world-builder-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="worldBuilder.title">باني العوالم</h1><p data-translate-key="worldBuilder.description">ابنِ عوالم خيالية متكاملة لقصصك وألعابك.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="worldBuilder.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="worldBuilder.button">ابنِ العالم</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- Character Creator Page -->
+            <section id="character-creator-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="characterCreator.title">صانع الشخصيات</h1><p data-translate-key="characterCreator.description">اصنع شخصيات عميقة ومفصلة لقصصك ورواياتك.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="characterCreator.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="characterCreator.button">اصنع الشخصية</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+            <!-- Business Plan Writer Page -->
+            <section id="business-plan-writer-page" class="page generic-tool-page">
+                 <header><h1 data-translate-key="businessPlan.title">كاتب خطط العمل</h1><p data-translate-key="businessPlan.description">اكتب خطط عمل احترافية ومفصلة لمشروعك.</p></header>
+                 <div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="businessPlan.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="businessPlan.button">اكتب الخطة</span><div class="loader hidden"></div></button></form></div>
+                 <div class="card generic-result-card hidden"><div class="generic-result-container"></div></div>
+            </section>
+
+             <!-- Newest Tools -->
+            <section id="video-script-writer-page" class="page generic-tool-page"><header><h1 data-translate-key="videoScript.title">كاتب سيناريو الفيديو</h1><p data-translate-key="videoScript.description">اكتب سيناريو (سكريبت) كاملاً لمقطع الفيديو القادم.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="videoScript.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="videoScript.button">اكتب السيناريو</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="rephrase-page" class="page generic-tool-page"><header><h1 data-translate-key="rephrase.title">إعادة صياغة النصوص</h1><p data-translate-key="rephrase.description">ألصق أي نص للحصول على نسخة جديدة بكلمات مختلفة.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="rephrase.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="rephrase.button">أعد الصياغة</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="product-description-page" class="page generic-tool-page"><header><h1 data-translate-key="productDescription.title">كاتب وصف المنتجات</h1><p data-translate-key="productDescription.description">مثالي للمتاجر الإلكترونية لكتابة وصف جذاب للمنتجات.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="productDescription.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="productDescription.button">اكتب الوصف</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="cover-letter-page" class="page generic-tool-page"><header><h1 data-translate-key="coverLetter.title">كاتب خطاب التغطية</h1><p data-translate-key="coverLetter.description">اكتب خطاب تقديم احترافي ومقنع للوظائف.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="coverLetter.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="coverLetter.button">اكتب الخطاب</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="brainstorm-page" class="page generic-tool-page"><header><h1 data-translate-key="brainstorm.title">مساعد العصف الذهني</h1><p data-translate-key="brainstorm.description">احصل على أفكار إبداعية وغير تقليدية حول أي موضوع.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="brainstorm.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="brainstorm.button">توليد أفكار</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="joke-generator-page" class="page generic-tool-page"><header><h1 data-translate-key="jokeGenerator.title">مولد النكت</h1><p data-translate-key="jokeGenerator.description">اطلب نكتة عن أي موضوع للحصول على جرعة من الضحك.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="jokeGenerator.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="jokeGenerator.button">أخبرني نكتة</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="dream-interpreter-page" class="page generic-tool-page"><header><h1 data-translate-key="dreamInterpreter.title">مفسر الأحلام</h1><p data-translate-key="dreamInterpreter.description">أدخل حلمك واحصل على تفسير شيق ومحتمل لمعانيه.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="dreamInterpreter.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="dreamInterpreter.button">فسّر الحلم</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="name-generator-page" class="page generic-tool-page"><header><h1 data-translate-key="nameGenerator.title">مولد الأسماء</h1><p data-translate-key="nameGenerator.description">لأسماء الشخصيات، العلامات التجارية، أو أي شيء آخر.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="nameGenerator.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="nameGenerator.button">توليد أسماء</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="interview-question-page" class="page generic-tool-page"><header><h1 data-translate-key="interviewQuestions.title">مولد أسئلة المقابلات</h1><p data-translate-key="interviewQuestions.description">لمديري التوظيف: قم بإعداد أسئلة فعالة للمرشحين.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="interviewQuestions.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="interviewQuestions.button">توليد أسئلة</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+            <section id="swot-analysis-page" class="page generic-tool-page"><header><h1 data-translate-key="swot.title">تحليل SWOT</h1><p data-translate-key="swot.description">تحليل استراتيجي (قوة، ضعف، فرص، تهديدات) لأي مشروع.</p></header><div class="card"><form class="generic-tool-form"><textarea class="generic-prompt-input" data-translate-placeholder-key="swot.placeholder" required></textarea><button type="submit"><span class="button-text" data-translate-key="swot.button">حلل الآن</span><div class="loader hidden"></div></button></form></div><div class="card generic-result-card hidden"><div class="generic-result-container"></div></div></section>
+
+            <!-- History Page -->
+            <section id="history-page" class="page">
+                 <header>
+                    <h1 data-translate-key="history.title">سجل الأعمال</h1>
+                    <p data-translate-key="history.description">تصفح، شارك، أو احذف القصص التي قمت بإنشائها سابقاً.</p>
+                </header>
+                 <div class="search-bar-container">
+                    <input type="search" id="history-search-input" data-translate-placeholder-key="history.searchPlaceholder">
+                </div>
+                <div id="history-list">
+                    <!-- History items will be injected here -->
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section id="settings-page" class="page">
+                 <header>
+                    <h1 data-translate-key="settings.title">الإعدادات</h1>
+                    <p data-translate-key="settings.description">تحكم في مظهر التطبيق وسلوكه.</p>
+                </header>
+                <div class="settings-container page-content">
+                    <div class="setting-group">
+                        <h2 data-translate-key="settings.appearance">المظهر</h2>
+                         <div class="setting-item">
+                            <label for="theme-switcher" data-translate-key="settings.theme">المظهر العام</label>
+                             <div id="theme-switcher" class="segmented-control">
+                                 <input type="radio" id="theme-dark" name="theme" value="dark" checked>
+                                 <label for="theme-dark" data-translate-key="settings.theme.dark">داكن</label>
+                                 <input type="radio" id="theme-light" name="theme" value="light">
+                                 <label for="theme-light" data-translate-key="settings.theme.light">فاتح</label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label for="font-size-switcher" data-translate-key="settings.fontSize">حجم خط القصة</label>
+                             <div id="font-size-switcher" class="segmented-control">
+                                 <input type="radio" id="font-small" name="font-size" value="small">
+                                 <label for="font-small" data-translate-key="settings.fontSize.small">صغير</label>
+                                 <input type="radio" id="font-medium" name="font-size" value="medium" checked>
+                                 <label for="font-medium" data-translate-key="settings.fontSize.medium">متوسط</label>
+                                 <input type="radio" id="font-large" name="font-size" value="large">
+                                 <label for="font-large" data-translate-key="settings.fontSize.large">كبير</label>
+                            </div>
+                        </div>
+                         <div class="setting-item">
+                            <label for="language-switcher" data-translate-key="settings.language">اللغة</label>
+                             <div id="language-switcher" class="segmented-control">
+                                 <input type="radio" id="lang-ar" name="language" value="ar" checked>
+                                 <label for="lang-ar" data-translate-key="settings.language.ar">العربية</label>
+                                 <input type="radio" id="lang-en" name="language" value="en">
+                                 <label for="lang-en" data-translate-key="settings.language.en">English</label>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="setting-group">
+                        <h2 data-translate-key="settings.data">البيانات</h2>
+                        <div class="setting-item">
+                            <div>
+                                <label data-translate-key="settings.history">سجل الأعمال</label>
+                                <button id="clear-history-btn" class="btn-danger" data-translate-key="settings.clearHistory">مسح السجل بالكامل</button>
+                            </div>
+                            <p class="setting-description" data-translate-key="settings.clearHistoryWarning">سيؤدي هذا إلى حذف جميع القصص التي أنشأتها بشكل دائم.</p>
+                        </div>
+                    </div>
+                     <div class="setting-group">
+                        <h2 data-translate-key="settings.about.title">حول التطبيق</h2>
+                         <div class="info-card">
+                             <h3 data-translate-key="appName">شرارة قصة</h3>
+                             <p data-translate-key="settings.about.appDescription">هذا التطبيق هو استوديو إبداعي متكامل مدعوم بنماذج الذكاء الاصطناعي المتقدمة من Google Gemini لمساعدتك على تحويل أفكارك إلى واقع.</p>
+                             <p data-translate-key="settings.about.appFeatures">تم تصميمه ليكون سريعاً، فعالاً، وسهل الاستخدام، مع مجموعة واسعة من الأدوات التي تلبي احتياجات المبدعين والكتاب والمسوقين والمطورين.</p>
+                         </div>
+                         <div class="info-card">
+                             <h3 data-translate-key="settings.about.developerInfo">معلومات المطور</h3>
+                             <p><b><span data-translate-key="settings.about.devNameLabel">الاسم:</span></b> <span data-translate-key="settings.about.devName">احمد مصطفي ابراهيم</span></p>
+                             <p><b><span data-translate-key="settings.about.devCompanyLabel">باسم:</span></b> <span data-translate-key="settings.about.devCompany">المحترف للاستشارات الضريبية والقانونية</span></p>
+                             <p><b><span data-translate-key="settings.about.devPhoneLabel">الهاتف:</span></b> <a href="tel:01225155329">01225155329</a></p>
+                             <p><b><span data-translate-key="settings.about.devEmailLabel">البريد الإلكتروني:</span></b> <a href="mailto:gogom8870@gmail.com">gogom8870@gmail.com</a></p>
+                             <p><b><span data-translate-key="settings.about.devFacebookLabel">مجموعة فيسبوك:</span></b> <a href="https://www.facebook.com/profile.php?id=100049475271023&sk=followers" target="_blank" rel="noopener noreferrer" data-translate-key="settings.about.devFacebookLink">رابط المجموعة</a></p>
+                         </div>
+                         <div class="info-card">
+                             <h3 data-translate-key="settings.about.privacyPolicyTitle">سياسة الخصوصية</h3>
+                             <p data-translate-key="settings.about.privacyPolicyText1">نحن نهتم بخصوصيتك. لا يقوم هذا التطبيق بجمع أو تخزين أي بيانات شخصية على خوادمنا. يتم حفظ جميع البيانات التي تنشئها، مثل القصص والإعدادات، محليًا على جهازك فقط باستخدام مساحة تخزين المتصفح.</p>
+                             <p data-translate-key="settings.about.privacyPolicyText2">عند استخدام الميزات التي تتطلب اتصالاً بالإنترنت (مثل إنشاء القصص أو الصور)، يتم إرسال مدخلاتك فقط إلى واجهة برمجة تطبيقات Google Gemini لمعالجتها وإعادتها إليك. نحن لا نسجل هذه الطلبات أو استجاباتها.</p>
+                         </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <footer>
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-page="home-page" aria-label="Home">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+                <span data-translate-key="nav.home">الرئيسية</span>
+            </button>
+            <button class="nav-btn" data-page="history-page" aria-label="History">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"></path></svg>
+                <span data-translate-key="nav.history">السجل</span>
+            </button>
+            <button class="nav-btn" data-page="settings-page" aria-label="Settings">
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69-.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path></svg>
+                <span data-translate-key="nav.settings">الإعدادات</span>
+            </button>
+        </nav>
+    </footer>
+</body>
+</html>

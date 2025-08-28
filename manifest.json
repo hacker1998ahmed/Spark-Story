@@ -1,0 +1,21 @@
+{
+  "name": "شرارة قصة",
+  "short_name": "شرارة قصة",
+  "description": "حوّل أفكارك إلى قصص نصية، مصورة، أو مخططات روايات متكاملة. مدعوم بالذكاء الاصطناعي مع أدوات متقدمة للتمديد والتصدير.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0c1d",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
